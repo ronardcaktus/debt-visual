@@ -1,0 +1,4 @@
+Django
+django-htmx
+django-bootstrap5
+pre-commit
