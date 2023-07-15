@@ -5,7 +5,7 @@
 To begin you should have the following applications installed on your local development system:
 
 - Python >= 3.11
-- pip[pip](http://www.pip-installer.org/) >= 20 
+- [pip](http://www.pip-installer.org/) >= 20 
 
 
 ### 💪🏽 **Setup**
@@ -52,7 +52,7 @@ Note: For simplicity, the project is currently running SQLite3
     $ python manage.py createsuperuser
 ```
 
-**8. Run the server**
+**7. Run the server**
 
 ```linux
     (hip)$ python manage.py migrate
