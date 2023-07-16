@@ -8,3 +8,4 @@ pytest-django
 
 # Other
 pre-commit
+pylint
