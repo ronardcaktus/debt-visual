@@ -1,4 +1,10 @@
+# Development
 Django
 django-htmx
 django-bootstrap5
+
+# Testing
+pytest-django
+
+# Other
 pre-commit
