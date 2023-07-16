@@ -5,3 +5,6 @@ db.sqlite3
 
 # Caches
 __pycache__/
+apps/__pycache__
+apps/countries/__pycache__
+debt_visual/__pycache__
