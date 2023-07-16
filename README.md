@@ -58,7 +58,7 @@ Note: For simplicity, the project is currently running SQLite3
     $ python manage.py migrate
 ```
 
-**7. Run tests**
+**8. Run tests**
 The project uses [pytest-django](https://pytest-django.readthedocs.io/en/latest/index.html) for testing. 
 
 To run tests, run:
