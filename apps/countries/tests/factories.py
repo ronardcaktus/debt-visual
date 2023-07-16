@@ -1,7 +1,7 @@
-
 import factory
 
 from apps.countries import models
+
 
 class CountryFactory(factory.django.DjangoModelFactory):
     class Meta:

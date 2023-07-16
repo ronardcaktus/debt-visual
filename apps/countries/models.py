@@ -1,6 +1,7 @@
 from django.db import models
 
-from apps.utils import Continents, Regions, in_dollar, world_population, global_gdp
+from apps.utils import (Continents, Regions, global_gdp, in_dollar,
+                        world_population)
 
 
 class Country(models.Model):
@@ -33,7 +34,7 @@ class Country(models.Model):
     @property
     def total_debt_as_int(self):
         return self.internal_debt + self.external_debt
-    
+
     @property
     def total_debt(self):
         return in_dollar.format(self.internal_debt + self.external_debt)

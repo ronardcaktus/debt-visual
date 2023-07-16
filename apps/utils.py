@@ -6,7 +6,7 @@ in_dollar = "${:,.2f}"
 
 world_population = int(8044465170)
 
-global_gdp = 96510000000000 # as of 2021
+global_gdp = 96510000000000  # as of 2021
 
 
 class Continents(models.TextChoices):
