@@ -5,7 +5,9 @@ django-bootstrap5
 
 # Testing
 pytest-django
+factory_boy
 
 # Other
 pre-commit
 pylint
+django-extensions

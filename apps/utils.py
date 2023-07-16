@@ -4,6 +4,10 @@ from django.utils.translation import gettext_lazy as _
 # Converts type floats to dollar ammounts
 in_dollar = "${:,.2f}"
 
+world_population = int(8044465170)
+
+global_gdp = 96510000000000 # as of 2021
+
 
 class Continents(models.TextChoices):
     ASIA = "asia", _("Asia")
