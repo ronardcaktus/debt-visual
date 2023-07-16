@@ -1,6 +1,7 @@
 .direnv
 db.sqlite3
 .envrc
+.vscode/
 
 # Caches
 __pycache__/
