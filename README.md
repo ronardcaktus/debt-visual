@@ -5,7 +5,7 @@
 To begin you should have the following applications installed on your local development system:
 
 - Python >= 3.11
-- [pip](http://www.pip-installer.org/) >= 20 
+- [pip](http://www.pip-installer.org/) >= 20
 
 
 ### 💪🏽 **Setup**
@@ -15,7 +15,7 @@ To begin you should have the following applications installed on your local deve
 First clone the repository from Github and switch to the new directory:
 
 ```linux
-    $ git clone 
+    $ git clone
     $ cd debt_visual
 ```
 
@@ -59,7 +59,8 @@ Note: For simplicity, the project is currently running SQLite3
 ```
 
 **8. Run tests**
-The project uses [pytest-django](https://pytest-django.readthedocs.io/en/latest/index.html) for testing. 
+
+The project uses [pytest-django](https://pytest-django.readthedocs.io/en/latest/index.html) for testing.
 
 To run tests, run:
 

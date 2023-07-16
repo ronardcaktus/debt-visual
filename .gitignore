@@ -3,6 +3,4 @@ db.sqlite3
 .envrc
 
 # Caches
-apps/__pycache__/
-apps/countries/__pycache__/
-debt_visual/__pycache__/
+__pycache__/

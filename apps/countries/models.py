@@ -1,4 +1,5 @@
 from django.db import models
+
 from apps.utils import Continents, Regions, in_dollar
 
 
