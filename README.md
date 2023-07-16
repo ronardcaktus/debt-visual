@@ -55,5 +55,14 @@ Note: For simplicity, the project is currently running SQLite3
 **7. Run the server**
 
 ```linux
-    (hip)$ python manage.py migrate
+    $ python manage.py migrate
+```
+
+**7. Run tests**
+The project uses [pytest-django](https://pytest-django.readthedocs.io/en/latest/index.html) for testing. 
+
+To run tests, run:
+
+```linux
+    $ pytest
 ```
