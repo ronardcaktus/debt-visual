@@ -6,6 +6,7 @@ repos:
       -   id: check-yaml
       -   id: end-of-file-fixer
       -   id: trailing-whitespace
+      exclude: "htmx.min.js"
   - repo: https://github.com/psf/black
     rev: 23.7.0
     hooks:
@@ -35,5 +36,5 @@ repos:
           [
             "-rn", # Only display messages
             "-sn", # Don't display the score
-            "--ignore=manage.py"
+            "--ignore=manage.py|htmx.min.js"
           ]

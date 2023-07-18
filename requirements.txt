@@ -1,7 +1,9 @@
-# Development
+# General
 Django
 django-htmx
 django-bootstrap5
+django-htmx
+django-bootstrap-v5
 
 # Testing
 pytest-django
