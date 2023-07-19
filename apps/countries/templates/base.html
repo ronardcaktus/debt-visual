@@ -1,0 +1,26 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    {% block content %}
+    {% endblock %}
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>
+
+</html>
