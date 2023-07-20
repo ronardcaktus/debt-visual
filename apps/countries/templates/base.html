@@ -1,26 +1,73 @@
 {% load static %}
 {# Load the tag library #}
 {% load bootstrap5 %}
-
-
 <!DOCTYPE html>
 
 <html lang="en">
 
 <head>
-    <title>{% block title %}{% endblock %}</title>
-    {# Load CSS and JavaScript #}
+    <meta charset="UTF-8" />
+    <meta name="description" content="Search and visualize world and countrie's debt." />
+    <meta name="author" content="Ronard Luna (ronarddevelops@gmail.com)" />
+    <title>{% block title %}{% endblock title %}</title>
+    {# Load Django Bootstrap5 CSS and JavaScript #}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <!-- Fontawesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light d-none d-lg-block" style="z-index: 2000;">
+        <div class="container-fluid">
+            <!-- Navbar brand -->
+            <a class="navbar-brand nav-link" href="#">
+                <strong>Debt Visual</strong>
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="#intro"> 🔍 Country</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" rel="nofollow">Compare Countries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Top 10s</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">App info</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav list-inline">
+                    <!-- Icons -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.linkedin.com/in/ronardluna/" rel="nofollow"
+                            target="_blank">
+                            <i class="fa-brands fa-linkedin-in fa-beat-fade"></i> LinkedIn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/ronardcaktus/debt-visual" rel="nofollow"
+                            target="_blank">
+                            <i class="fa-brands fa-github fa-bounce"></i> GitHub
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
     {% block content %}
-    {% endblock %}
+    {% endblock content %}
     <script src="{% static 'js/script.js' %}"></script>
 </body>
-
-</html>
 
 </html>
