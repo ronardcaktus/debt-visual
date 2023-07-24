@@ -1,6 +1,5 @@
 {% load static %}
 {# Load the tag library #}
-{% load bootstrap5 %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -11,6 +10,7 @@
     <meta name="author" content="Ronard Luna (ronarddevelops@gmail.com)" />
     <title>{% block title %}{% endblock title %}</title>
     {# Load Django Bootstrap5 CSS and JavaScript #}
+    {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <!-- Fontawesome icons -->
@@ -24,13 +24,17 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light d-none d-lg-block" style="z-index: 2000;">
+    <nav class="navbar navbar-expand-lg navbar-light d-lg-block">
         <div class="container-fluid">
-            <!-- Navbar brand -->
             <a class="navbar-brand nav-link" href="#">
                 <strong>Debt Visual</strong>
             </a>
-            <div class="collapse navbar-collapse">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item active">
                         <a class="nav-link" aria-current="page" href="#intro"> 🔍 Country</a>
@@ -68,6 +72,8 @@
     {% block content %}
     {% endblock content %}
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
