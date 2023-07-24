@@ -1,3 +1,20 @@
-#navbar-top-level {
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.navbar {
+    font-size: 1.1rem;
     z-index: 2000;
+}
+
+.navbar.navbar-expand-lg.navbar-light li a {
+    color: rgb(78, 75, 75)
+}
+
+.fa-linkedin-in {
+    color: rgb(10, 102, 194);
+}
+
+.fa-github {
+    color: rgb(0, 0, 0)
 }
