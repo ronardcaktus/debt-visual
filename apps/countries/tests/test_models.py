@@ -1,3 +1,5 @@
+from django.test import TestCase
+
 from apps.countries.tests.factories import CountryFactory
 from apps.utils import global_gdp, in_dollar, world_population
 
@@ -47,3 +49,58 @@ class TestCountryProperties:
 
     def test_gdp_as_percentage_of_global_gdp(self):
         assert self.cf.gdp_as_percentage_of_global_gdp == (self.gdp / global_gdp) * 100
+
+
+class CountryModelTests(TestCase):
+    region = "Europe"
+
+    def test_gdp_as_percentage_of_region(self):
+        region_countries = CountryFactory.create_batch(5, region=self.region)
+        country = CountryFactory(region=self.region)
+
+        # Calculate the total GDP of countries in the same region, including the current country
+        total_region_gdp = (
+            sum(country.gdp for country in region_countries) + country.gdp
+        )
+
+        # Expected GDP percentage
+        expected_percentage = (
+            (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
+        )
+
+        assert round(country.gdp_as_percentage_of_region, 4) == round(
+            expected_percentage, 4
+        )
+
+    def test_gdp_as_percentage_of_region_countries_gpd_zero(self):
+        region_countries = CountryFactory.create_batch(5, region=self.region)
+        country = CountryFactory(region=self.region)
+
+        # Add countries with GDP = 0 to the region
+        zero_gdp_country = CountryFactory(region=self.region, gdp=0)
+        another_zero_gdp_country = CountryFactory(region=self.region, gdp=0)
+
+        total_region_gdp = (
+            sum(country.gdp for country in region_countries)
+            + country.gdp
+            + zero_gdp_country.gdp
+            + another_zero_gdp_country.gdp
+        )
+        expected_percentage = (
+            (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
+        )
+        assert round(country.gdp_as_percentage_of_region, 4) == round(
+            expected_percentage, 4
+        )
+
+    def test_gdp_as_percentage_of_region_ensure_returns_zero(self):
+        region_countries = CountryFactory.create_batch(3, region=self.region, gdp=0)
+        country = CountryFactory(region=self.region, gdp=0)
+        total_region_gdp = sum(country.gdp for country in region_countries)
+        expected_percentage = (
+            (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
+        )
+        assert (
+            round(country.gdp_as_percentage_of_region, 4) == 0
+            and expected_percentage == 0
+        )

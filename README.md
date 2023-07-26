@@ -67,3 +67,10 @@ To run tests, run:
 ```linux
     $ pytest
 ```
+
+**Coverage**
+
+To run coverage, run:
+```
+pytest --cov
+```
