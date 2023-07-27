@@ -23,6 +23,9 @@ class Country(models.Model):
         default="",
         blank=True,
     )
+    source_link = models.URLField(max_length=300, blank=True, null=True)
+    chart_link = models.URLField(max_length=300, blank=True, null=True)
+    extra_link = models.URLField(max_length=300, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Countries"
@@ -63,3 +66,12 @@ class Country(models.Model):
     @property
     def gdp_as_percentage_of_global_gdp(self):
         return (self.gdp / global_gdp) * 100
+
+    @property
+    def gdp_as_percentage_of_region(self):
+        countries_in_region = Country.objects.filter(region=self.region)
+        total_region_gdp = sum(country.gdp for country in countries_in_region)
+        gdp_per_region = (
+            round((self.gdp / total_region_gdp) * 100, 4) if total_region_gdp else 0
+        )
+        return gdp_per_region
