@@ -68,9 +68,14 @@ To run tests, run:
     $ pytest
 ```
 
-**Coverage**
+**Coverage & Tests**
 
 To run coverage, run:
 ```
 pytest --cov
+```
+
+To run tests & coverage, run:
+```
+coverage run -m pytest
 ```
