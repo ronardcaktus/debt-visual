@@ -71,7 +71,7 @@ class Country(models.Model):
     def gdp_as_percentage_of_region(self):
         countries_in_region = Country.objects.filter(region=self.region)
         total_region_gdp = sum(country.gdp for country in countries_in_region)
-        gdp_per_region = (
+        country_gdp_region_percentage = (
             round((self.gdp / total_region_gdp) * 100, 4) if total_region_gdp else 0
         )
-        return gdp_per_region
+        return country_gdp_region_percentage
