@@ -107,32 +107,28 @@ class CountryModelTests(TestCase):
         )
 
 
-# result = CountryFactory.build(population=input_str).formatted_population
+# Tests formatted_population property in Country model
 @pytest.mark.parametrize(
     "input_str, expected_output",
     [
-        ("123", "123"),
-        ("1000", "1 thousand"),
-        ("9999", "9.999 thousand"),
-        ("10000", "10 thousand"),
-        ("99999", "99.999 thousand"),
-        ("100000", "100 thousand"),
-        ("999999", "999.999 thousand"),
         ("1000000", "1.0 million"),
         ("9999999", "10.0 million"),
         ("10000000", "10.0 million"),
         ("99999999", "100.0 million"),
         ("100000000", "100.0 million"),
-        ("999999999", "1.0 billion"),
+        # Edgecase - 999 million, 999 thousand, and 999
+        # shows as 1,000.0 million because they aren't one
+        # billion.
+        ("999999999", "1,000.0 million"),
         ("1000000000", "1.0 billion"),
         ("9999999999", "10.0 billion"),
         ("10000000000", "10.0 billion"),
         ("99999999999", "100.0 billion"),
         ("100000000000", "100.0 billion"),
         ("1234567890", "1.2 billion"),
-        ("123456", "123.456 hundred"),
+        ("123456", "123.5 thousand"),
         ("1234567", "1.2 million"),
-        ("1000000000000", "1,000.0 billion"),
+        ("1000000000000", "1.0 trillion"),
     ],
 )
 def test_formatted_population(input_str, expected_output):

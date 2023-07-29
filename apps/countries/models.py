@@ -52,10 +52,17 @@ class Country(models.Model):
 
     @property
     def formatted_population(self):
+        # For now I am OK with using round and therefore
+        # rounding up, since population is increasingly growing.
         population_number = int(self.population)
         suffix = ""
 
-        if population_number >= 1_000_000_000:
+        if population_number >= 1_000_000_000_000:
+            suffix = " trillion"
+            formatted_population = population_format.format(
+                round(population_number / 1_000_000_000_000, 1)
+            )
+        elif population_number >= 1_000_000_000:
             suffix = " billion"
             formatted_population = population_format.format(
                 round(population_number / 1_000_000_000, 1)
