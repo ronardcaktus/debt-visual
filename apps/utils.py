@@ -2,7 +2,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Converts type floats to dollar ammounts
-in_dollar = "${:,.2f}"
+dollar_format = "${:,.2f}"
+# Converts string to population
+population_format = "{:,}"
 
 world_population = int(8044465170)
 

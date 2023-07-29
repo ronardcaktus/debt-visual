@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+<main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">All content will go here</h1>
+            <div class="row">
+                <div class="col-3">
+                    {% for country in countries %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Country</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Name:</strong> {{ country.name }}</p>
+                            <p><strong>Flag:</strong> {{ country.flag }}</p>
+                            <p><strong>Population:</strong> {{ country.formatted_population }}</p>
+                            <p><strong>GDP:</strong> {{ country.gdp_in_dollars }}</p>
+                            <p><strong>Int Debt:</strong> {{ country.int_debt_in_dollars }}</p>
+                            <p><strong>Ext Debt:</strong> {{ country.ext_debt_in_dollars }}</p>
+                            <p><strong>Total Debt:</strong> {{ country.total_debt }}</p>
+                            <p><strong>Region:</strong> {{ country.region }}</p>
+                            <p><strong>Continent:</strong> {{ country.continent }}</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="lead"> X's GDP % of X region</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-9">
+                    <h4>Economics indicator chart will go here</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

@@ -1,7 +1,8 @@
+import pytest
 from django.test import TestCase
 
 from apps.countries.tests.factories import CountryFactory
-from apps.utils import global_gdp, in_dollar, world_population
+from apps.utils import dollar_format, global_gdp, world_population
 
 
 class TestCountryProperties:
@@ -18,27 +19,27 @@ class TestCountryProperties:
     )
 
     def test_total_debt(self):
-        assert self.cf.total_debt == in_dollar.format(self.total_debt_as_int)
+        assert self.cf.total_debt == dollar_format.format(self.total_debt_as_int)
 
     def test_internal_debt_per_citizen(self):
         internal_debt = self.internal_debt / self.population
-        assert self.cf.internal_debt_per_citizen == in_dollar.format(internal_debt)
+        assert self.cf.internal_debt_per_citizen == dollar_format.format(internal_debt)
 
     def test_external_debt_per_citizen(self):
         ext_debt_per_citizen = self.external_debt / self.population
-        assert self.cf.external_debt_per_citizen == in_dollar.format(
+        assert self.cf.external_debt_per_citizen == dollar_format.format(
             ext_debt_per_citizen
         )
 
     def test_total_debt_per_citizen(self):
         total_debt_per_citizen = self.total_debt_as_int / self.population
-        assert self.cf.total_debt_per_citizen == in_dollar.format(
+        assert self.cf.total_debt_per_citizen == dollar_format.format(
             total_debt_per_citizen
         )
 
     def test_debt_to_gpd_ratio(self):
         debt_to_gpd_ratio = self.total_debt_as_int / self.gdp
-        assert self.cf.debt_to_gpd_ratio == in_dollar.format(debt_to_gpd_ratio)
+        assert self.cf.debt_to_gpd_ratio == dollar_format.format(debt_to_gpd_ratio)
 
     def test_population_percentage_of_the_world(self):
         country_vs_world_population = round(self.population / world_population, 4) * 100
@@ -104,3 +105,38 @@ class CountryModelTests(TestCase):
             round(country.gdp_as_percentage_of_region, 4) == 0
             and expected_percentage == 0
         )
+
+
+# result = CountryFactory.build(population=input_str).formatted_population
+@pytest.mark.parametrize(
+    "input_str, expected_output",
+    [
+        ("123", "123"),
+        ("1000", "1 thousand"),
+        ("9999", "9.999 thousand"),
+        ("10000", "10 thousand"),
+        ("99999", "99.999 thousand"),
+        ("100000", "100 thousand"),
+        ("999999", "999.999 thousand"),
+        ("1000000", "1.0 million"),
+        ("9999999", "10.0 million"),
+        ("10000000", "10.0 million"),
+        ("99999999", "100.0 million"),
+        ("100000000", "100.0 million"),
+        ("999999999", "1.0 billion"),
+        ("1000000000", "1.0 billion"),
+        ("9999999999", "10.0 billion"),
+        ("10000000000", "10.0 billion"),
+        ("99999999999", "100.0 billion"),
+        ("100000000000", "100.0 billion"),
+        ("1234567890", "1.2 billion"),
+        ("123456", "123.456 hundred"),
+        ("1234567", "1.2 million"),
+        ("1000000000000", "1,000.0 billion"),
+    ],
+)
+def test_formatted_population(input_str, expected_output):
+    result = CountryFactory.build(population=input_str).formatted_population
+    assert (
+        result == expected_output
+    ), f"Error: Input: {input_str}, Expected: {expected_output}, Got: {result}"

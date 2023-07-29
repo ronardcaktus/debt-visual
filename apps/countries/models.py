@@ -1,7 +1,7 @@
 from django.db import models
 
-from apps.utils import (Continents, Regions, global_gdp, in_dollar,
-                        world_population)
+from apps.utils import (Continents, Regions, dollar_format, global_gdp,
+                        population_format, world_population)
 
 
 class Country(models.Model):
@@ -39,24 +39,61 @@ class Country(models.Model):
         return self.internal_debt + self.external_debt
 
     @property
+    def gdp_in_dollars(self):
+        return dollar_format.format(self.gdp)
+
+    @property
+    def int_debt_in_dollars(self):
+        return dollar_format.format(self.internal_debt)
+
+    @property
+    def ext_debt_in_dollars(self):
+        return dollar_format.format(self.external_debt)
+
+    @property
+    def formatted_population(self):
+        population_number = int(self.population)
+        suffix = ""
+
+        if population_number >= 1_000_000_000:
+            suffix = " billion"
+            formatted_population = population_format.format(
+                round(population_number / 1_000_000_000, 1)
+            )
+        elif population_number >= 1_000_000:
+            suffix = " million"
+            formatted_population = population_format.format(
+                round(population_number / 1_000_000, 1)
+            )
+        elif population_number >= 1_000:
+            suffix = " thousand"
+            formatted_population = population_format.format(
+                round(population_number / 1_000, 1)
+            )
+        else:
+            formatted_population = population_format.format(population_number)
+
+        return f"{formatted_population}{suffix}"
+
+    @property
     def total_debt(self):
-        return in_dollar.format(self.internal_debt + self.external_debt)
+        return dollar_format.format(self.internal_debt + self.external_debt)
 
     @property
     def internal_debt_per_citizen(self):
-        return in_dollar.format(self.internal_debt / self.population)
+        return dollar_format.format(self.internal_debt / self.population)
 
     @property
     def external_debt_per_citizen(self):
-        return in_dollar.format(self.external_debt / self.population)
+        return dollar_format.format(self.external_debt / self.population)
 
     @property
     def total_debt_per_citizen(self):
-        return in_dollar.format(self.total_debt_as_int / self.population)
+        return dollar_format.format(self.total_debt_as_int / self.population)
 
     @property
     def debt_to_gpd_ratio(self):
-        return in_dollar.format(self.total_debt_as_int / self.gdp)
+        return dollar_format.format(self.total_debt_as_int / self.gdp)
 
     @property
     def population_percentage_of_the_world(self):
