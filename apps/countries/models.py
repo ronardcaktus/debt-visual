@@ -124,8 +124,8 @@ class Country(models.Model):
 
     @property
     def continent_formatted(self):
-        return utils.format_country_or_contient(self.continent)
+        return utils.format_country_or_continent(self.continent)
 
     @property
     def region_formatted(self):
-        return utils.format_country_or_contient(self.region)
+        return utils.format_country_or_continent(self.region)

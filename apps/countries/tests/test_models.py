@@ -2,7 +2,7 @@ import pytest
 from django.test import TestCase
 
 from apps.countries.tests.factories import CountryFactory
-from apps.utils import (dollar_format, format_country_or_contient, global_gdp,
+from apps.utils import (dollar_format, format_country_or_continent, global_gdp,
                         world_population)
 
 
@@ -56,13 +56,13 @@ class TestCountryProperties:
 
     def test_continent_formatted(self):
         assert self.cf.continent != self.cf.continent_formatted
-        assert self.cf.continent_formatted == format_country_or_contient(
+        assert self.cf.continent_formatted == format_country_or_continent(
             self.cf.continent
         )
 
     def test_region_formatted(self):
         assert self.cf.region != self.cf.region_formatted
-        assert self.cf.region_formatted == format_country_or_contient(self.cf.region)
+        assert self.cf.region_formatted == format_country_or_continent(self.cf.region)
 
 
 class CountryModelTests(TestCase):
