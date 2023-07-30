@@ -1,7 +1,9 @@
+import pytest
 from django.test import TestCase
 
 from apps.countries.tests.factories import CountryFactory
-from apps.utils import global_gdp, in_dollar, world_population
+from apps.utils import (dollar_format, format_country_or_continent, global_gdp,
+                        world_population)
 
 
 class TestCountryProperties:
@@ -18,27 +20,29 @@ class TestCountryProperties:
     )
 
     def test_total_debt(self):
-        assert self.cf.total_debt == in_dollar.format(self.total_debt_as_int)
+        assert f"{self.cf.total_debt_in_dollars}.00" == dollar_format.format(
+            self.total_debt_as_int
+        )
 
     def test_internal_debt_per_citizen(self):
         internal_debt = self.internal_debt / self.population
-        assert self.cf.internal_debt_per_citizen == in_dollar.format(internal_debt)
+        assert self.cf.internal_debt_per_citizen == dollar_format.format(internal_debt)
 
     def test_external_debt_per_citizen(self):
         ext_debt_per_citizen = self.external_debt / self.population
-        assert self.cf.external_debt_per_citizen == in_dollar.format(
+        assert self.cf.external_debt_per_citizen == dollar_format.format(
             ext_debt_per_citizen
         )
 
     def test_total_debt_per_citizen(self):
         total_debt_per_citizen = self.total_debt_as_int / self.population
-        assert self.cf.total_debt_per_citizen == in_dollar.format(
+        assert self.cf.total_debt_per_citizen == dollar_format.format(
             total_debt_per_citizen
         )
 
     def test_debt_to_gpd_ratio(self):
         debt_to_gpd_ratio = self.total_debt_as_int / self.gdp
-        assert self.cf.debt_to_gpd_ratio == in_dollar.format(debt_to_gpd_ratio)
+        assert self.cf.debt_to_gpd_ratio == dollar_format.format(debt_to_gpd_ratio)
 
     def test_population_percentage_of_the_world(self):
         country_vs_world_population = round(self.population / world_population, 4) * 100
@@ -49,6 +53,16 @@ class TestCountryProperties:
 
     def test_gdp_as_percentage_of_global_gdp(self):
         assert self.cf.gdp_as_percentage_of_global_gdp == (self.gdp / global_gdp) * 100
+
+    def test_continent_formatted(self):
+        assert self.cf.continent != self.cf.continent_formatted
+        assert self.cf.continent_formatted == format_country_or_continent(
+            self.cf.continent
+        )
+
+    def test_region_formatted(self):
+        assert self.cf.region != self.cf.region_formatted
+        assert self.cf.region_formatted == format_country_or_continent(self.cf.region)
 
 
 class CountryModelTests(TestCase):
@@ -104,3 +118,34 @@ class CountryModelTests(TestCase):
             round(country.gdp_as_percentage_of_region, 4) == 0
             and expected_percentage == 0
         )
+
+
+# Tests formatted_population property in Country model
+@pytest.mark.parametrize(
+    "input_str, expected_output",
+    [
+        ("1000000", "1.0 million"),
+        ("9999999", "10.0 million"),
+        ("10000000", "10.0 million"),
+        ("99999999", "100.0 million"),
+        ("100000000", "100.0 million"),
+        # Edgecase - 999 million, 999 thousand, and 999
+        # shows as 1,000.0 million because they aren't one
+        # billion.
+        ("999999999", "1,000.0 million"),
+        ("1000000000", "1.0 billion"),
+        ("9999999999", "10.0 billion"),
+        ("10000000000", "10.0 billion"),
+        ("99999999999", "100.0 billion"),
+        ("100000000000", "100.0 billion"),
+        ("1234567890", "1.2 billion"),
+        ("123456", "123.5 thousand"),
+        ("1234567", "1.2 million"),
+        ("1000000000000", "1.0 trillion"),
+    ],
+)
+def test_formatted_population(input_str, expected_output):
+    result = CountryFactory.build(population=input_str).formatted_population
+    assert (
+        result == expected_output
+    ), f"Error: Input: {input_str}, Expected: {expected_output}, Got: {result}"
