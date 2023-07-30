@@ -13,17 +13,24 @@
                 <div class="col-3">
                     {% for country in countries %}
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header pb-1">
                             <h5>Country</h5>
                         </div>
-                        <div class="card-body">
-                            <p><strong>Name:</strong> {{ country.name }}</p>
+                        <div class="card-body pb-1">
+                            <p><strong>Name:</strong> {{ country.name }} {% if country.source_link %}
+                                <a href="{{ country.source_link }}" target="_blank"><i
+                                        class="fa-solid fa-circle-info"></i></a> {% endif %}
+                            </p>
                             <p><strong>Flag:</strong> {{ country.flag }}</p>
                             <p><strong>Population:</strong> {{ country.formatted_population }}</p>
                             <p><strong>GDP:</strong> {{ country.gdp_in_dollars }} per annum</p>
                             <p><strong>Internal Debt:</strong> {{ country.int_debt_in_dollars }}</p>
                             <p><strong>External Debt:</strong> {{ country.ext_debt_in_dollars }}</p>
-                            <p><strong>Total Debt:</strong> {{ country.total_debt_in_dollars }}</p>
+                            <p><strong>Total Debt:</strong> {{ country.total_debt_in_dollars }}
+                                {% if country.chart_link %}
+                                <a href="{{ country.chart_link }}" target="_blank"><i
+                                        class="fa-solid fa-chart-simple"></i></a> {% endif %}
+                            </p>
                             <p><strong>Region:</strong> {{ country.region_formatted }}</p>
                             <p><strong>Continent:</strong> {{ country.continent_formatted }}</p>
                         </div>
