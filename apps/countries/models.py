@@ -1,6 +1,8 @@
 from django.db import models
+from numerize import numerize
 
-from apps.utils import (Continents, Regions, dollar_format, global_gdp,
+from apps.utils import (Continents, Regions, dollar_format,
+                        format_country_or_contient, global_gdp,
                         population_format, world_population)
 
 
@@ -40,15 +42,19 @@ class Country(models.Model):
 
     @property
     def gdp_in_dollars(self):
-        return dollar_format.format(self.gdp)
+        return f"${numerize.numerize(self.gdp, 4)}"
 
     @property
     def int_debt_in_dollars(self):
-        return dollar_format.format(self.internal_debt)
+        return f"${numerize.numerize(self.internal_debt)}"
 
     @property
     def ext_debt_in_dollars(self):
-        return dollar_format.format(self.external_debt)
+        return f"${numerize.numerize(self.external_debt)}"
+
+    @property
+    def total_debt_in_dollars(self):
+        return f"${numerize.numerize(self.internal_debt + self.external_debt)}"
 
     @property
     def formatted_population(self):
@@ -83,10 +89,6 @@ class Country(models.Model):
         return f"{formatted_population}{suffix}"
 
     @property
-    def total_debt(self):
-        return dollar_format.format(self.internal_debt + self.external_debt)
-
-    @property
     def internal_debt_per_citizen(self):
         return dollar_format.format(self.internal_debt / self.population)
 
@@ -119,3 +121,11 @@ class Country(models.Model):
             round((self.gdp / total_region_gdp) * 100, 4) if total_region_gdp else 0
         )
         return country_gdp_region_percentage
+
+    @property
+    def continent_formatted(self):
+        return format_country_or_contient(self.continent)
+
+    @property
+    def region_formatted(self):
+        return format_country_or_contient(self.region)

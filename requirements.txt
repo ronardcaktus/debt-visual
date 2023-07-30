@@ -4,6 +4,7 @@ django-htmx
 django-bootstrap5
 django-htmx
 django-bootstrap-v5
+numerize
 
 # Testing
 pytest-django

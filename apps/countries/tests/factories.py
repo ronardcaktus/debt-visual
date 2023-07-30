@@ -1,5 +1,6 @@
 import factory
 
+from apps import utils
 from apps.countries import models
 
 
@@ -19,3 +20,5 @@ class CountryFactory(factory.django.DjangoModelFactory):
     source_link = factory.Faker("url")
     chart_link = factory.Faker("url")
     extra_link = factory.Faker("url")
+    continent = factory.Iterator([choice[0] for choice in utils.Continents.choices])
+    region = factory.Iterator([choice[0] for choice in utils.Regions.choices])

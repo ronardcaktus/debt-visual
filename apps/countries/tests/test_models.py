@@ -2,7 +2,8 @@ import pytest
 from django.test import TestCase
 
 from apps.countries.tests.factories import CountryFactory
-from apps.utils import dollar_format, global_gdp, world_population
+from apps.utils import (dollar_format, format_country_or_contient, global_gdp,
+                        world_population)
 
 
 class TestCountryProperties:
@@ -19,7 +20,9 @@ class TestCountryProperties:
     )
 
     def test_total_debt(self):
-        assert self.cf.total_debt == dollar_format.format(self.total_debt_as_int)
+        assert f"{self.cf.total_debt_in_dollars}.00" == dollar_format.format(
+            self.total_debt_as_int
+        )
 
     def test_internal_debt_per_citizen(self):
         internal_debt = self.internal_debt / self.population
@@ -50,6 +53,16 @@ class TestCountryProperties:
 
     def test_gdp_as_percentage_of_global_gdp(self):
         assert self.cf.gdp_as_percentage_of_global_gdp == (self.gdp / global_gdp) * 100
+
+    def test_continent_formatted(self):
+        assert self.cf.continent != self.cf.continent_formatted
+        assert self.cf.continent_formatted == format_country_or_contient(
+            self.cf.continent
+        )
+
+    def test_region_formatted(self):
+        assert self.cf.region != self.cf.region_formatted
+        assert self.cf.region_formatted == format_country_or_contient(self.cf.region)
 
 
 class CountryModelTests(TestCase):
