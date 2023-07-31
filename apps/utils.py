@@ -5,6 +5,8 @@ from django.utils.translation import gettext_lazy as _
 dollar_format = "${:,.2f}"
 # Converts string to population
 population_format = "{:,}"
+# Limits to two decimal places
+limit_2_decimals = "{:.2f}"
 
 world_population = int(8044465170)
 

@@ -33,14 +33,38 @@
                             </p>
                             <p><strong>Region:</strong> {{ country.region_formatted }}</p>
                             <p><strong>Continent:</strong> {{ country.continent_formatted }}</p>
+                            <!-- <p>{{ country.total_region_gdp }}</p>
+                            <p>{{ country.gdp_as_percentage_of_region }}%</p> -->
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body pb-1">
-                            <p class="lead text-center fs-6"> {{ country.name }}'s GDP %
-                                of {{ country.region_formatted}}'s GDP.</p>
-                        </div>
-                    </div>
+
+                    <!-- GDP Chart -->
+                    <canvas id="gdpChart" width="300" height="300"></canvas>
+                    <script>
+                        const ctx = document.getElementById('gdpChart').getContext('2d');
+                        const gdpChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: [
+                                    'Total Region GDP',
+                                    '{{ country.name }} GPD',
+                                ],
+                                datasets: [{
+                                    label: 'GDP chart',
+                                    data: ["{{ country.total_region_gdp }}", "{{ country.gdp_as_percentage_of_region }}"],
+                                    backgroundColor: [
+                                        'rgba(90, 138, 211, 0.7)',
+                                        'rgba(220, 235, 2, 0.7)'
+                                    ],
+                                    hoverOffset: 4
+                                }]
+                            }
+                        });
+                    </script>
+
+                    <p class="lead text-center fs-6"> {{ country.name }}'s GDP %
+                        of {{ country.region_formatted}}n region.</p>
+
                     {% endfor %}
                 </div>
                 <div class="col-9">
