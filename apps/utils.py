@@ -32,6 +32,6 @@ class Regions(models.TextChoices):
     OCEANIA = "oceania", _("Oceania")
 
 
-def format_country_or_contient(name):
+def format_country_or_continent(name):
     formatted_name = " ".join(word.capitalize() for word in name.split("_"))
     return formatted_name
