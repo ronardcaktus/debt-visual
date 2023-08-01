@@ -1,9 +1,11 @@
+from decimal import Decimal
+
 import pytest
 from django.test import TestCase
 
 from apps.countries.tests.factories import CountryFactory
 from apps.utils import (dollar_format, format_country_or_continent, global_gdp,
-                        world_population)
+                        limit_2_decimals, world_population)
 
 
 class TestCountryProperties:
@@ -81,9 +83,8 @@ class CountryModelTests(TestCase):
         expected_percentage = (
             (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
         )
-
-        assert round(country.gdp_as_percentage_of_region, 4) == round(
-            expected_percentage, 4
+        assert Decimal(country.gdp_as_percentage_of_region) == Decimal(
+            limit_2_decimals.format(expected_percentage)
         )
 
     def test_gdp_as_percentage_of_region_countries_gpd_zero(self):
@@ -103,8 +104,8 @@ class CountryModelTests(TestCase):
         expected_percentage = (
             (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
         )
-        assert round(country.gdp_as_percentage_of_region, 4) == round(
-            expected_percentage, 4
+        assert Decimal(country.gdp_as_percentage_of_region) == Decimal(
+            limit_2_decimals.format(expected_percentage)
         )
 
     def test_gdp_as_percentage_of_region_ensure_returns_zero(self):
@@ -115,8 +116,7 @@ class CountryModelTests(TestCase):
             (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
         )
         assert (
-            round(country.gdp_as_percentage_of_region, 4) == 0
-            and expected_percentage == 0
+            int(country.gdp_as_percentage_of_region) == 0 and expected_percentage == 0
         )
 
 
