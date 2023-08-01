@@ -62,29 +62,29 @@ class Country(models.Model):
         suffix = ""
 
         if population_number >= 1_000_000_000_000:
-            suffix = " trillion"
+            suffix = "trillion"
             formatted_population = utils.population_format.format(
-                round(population_number / 1_000_000_000_000, 1)
+                utils.rounds_numbers_accurately(population_number / 1_000_000_000_000)
             )
         elif population_number >= 1_000_000_000:
-            suffix = " billion"
+            suffix = "billion"
             formatted_population = utils.population_format.format(
-                round(population_number / 1_000_000_000, 1)
+                utils.rounds_numbers_accurately(population_number / 1_000_000_000)
             )
         elif population_number >= 1_000_000:
-            suffix = " million"
+            suffix = "million"
             formatted_population = utils.population_format.format(
-                round(population_number / 1_000_000, 1)
+                utils.rounds_numbers_accurately(population_number / 1_000_000)
             )
         elif population_number >= 1_000:
-            suffix = " thousand"
+            suffix = "thousand"
             formatted_population = utils.population_format.format(
-                round(population_number / 1_000, 1)
+                utils.rounds_numbers_accurately(population_number / 1_000)
             )
         else:
             formatted_population = utils.population_format.format(population_number)
 
-        return f"{formatted_population}{suffix}"
+        return f"{formatted_population} {suffix}"
 
     @property
     def internal_debt_per_citizen(self):
