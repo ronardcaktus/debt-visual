@@ -117,7 +117,6 @@ class Country(models.Model):
     def total_region_gdp(self):
         countries_in_region = Country.objects.filter(region=self.region)
         total_region_gdp = sum(country.gdp for country in countries_in_region)
-        # breakpoint()
         return f"{numerize.numerize(float(total_region_gdp))}"
 
     @property
