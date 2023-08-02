@@ -56,8 +56,6 @@ class Country(models.Model):
 
     @property
     def formatted_population(self):
-        # For now I am OK with using round and therefore
-        # rounding up, since population is increasingly growing.
         population_number = int(self.population)
         suffix = ""
 
