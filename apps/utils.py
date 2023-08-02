@@ -1,3 +1,5 @@
+from decimal import ROUND_DOWN, Decimal
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -35,5 +37,16 @@ class Regions(models.TextChoices):
 
 
 def format_country_or_continent(name):
+    """
+    Intakes a str(country or continent) in cammel case: 'north_america'
+    and replaces the _ with spaces and capitalizes the first letter.
+    Returning 'North America'.
+    """
     formatted_name = " ".join(word.capitalize() for word in name.split("_"))
     return formatted_name
+
+
+def rounds_numbers_accurately(number):
+    """Accurately trims float to 1 decimal without rounding."""
+    rounded_number = Decimal(str(number)).quantize(Decimal("0.1"), rounding=ROUND_DOWN)
+    return float(rounded_number)

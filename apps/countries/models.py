@@ -56,51 +56,55 @@ class Country(models.Model):
 
     @property
     def formatted_population(self):
-        # For now I am OK with using round and therefore
-        # rounding up, since population is increasingly growing.
         population_number = int(self.population)
         suffix = ""
 
         if population_number >= 1_000_000_000_000:
-            suffix = " trillion"
+            suffix = "trillion"
             formatted_population = utils.population_format.format(
-                round(population_number / 1_000_000_000_000, 1)
+                utils.rounds_numbers_accurately(population_number / 1_000_000_000_000)
             )
         elif population_number >= 1_000_000_000:
-            suffix = " billion"
+            suffix = "billion"
             formatted_population = utils.population_format.format(
-                round(population_number / 1_000_000_000, 1)
+                utils.rounds_numbers_accurately(population_number / 1_000_000_000)
             )
         elif population_number >= 1_000_000:
-            suffix = " million"
+            suffix = "million"
             formatted_population = utils.population_format.format(
-                round(population_number / 1_000_000, 1)
+                utils.rounds_numbers_accurately(population_number / 1_000_000)
             )
         elif population_number >= 1_000:
-            suffix = " thousand"
+            suffix = "thousand"
             formatted_population = utils.population_format.format(
-                round(population_number / 1_000, 1)
+                utils.rounds_numbers_accurately(population_number / 1_000)
             )
         else:
             formatted_population = utils.population_format.format(population_number)
 
-        return f"{formatted_population}{suffix}"
+        return f"{formatted_population} {suffix}"
 
     @property
     def internal_debt_per_citizen(self):
-        return utils.dollar_format.format(self.internal_debt / self.population)
+        return round(self.internal_debt / self.population, 2)
 
     @property
     def external_debt_per_citizen(self):
-        return utils.dollar_format.format(self.external_debt / self.population)
+        return round(self.external_debt / self.population, 2)
 
     @property
     def total_debt_per_citizen(self):
-        return utils.dollar_format.format(self.total_debt_as_int / self.population)
+        return round(self.total_debt_as_int / self.population, 2)
 
     @property
     def debt_to_gpd_ratio(self):
-        return utils.dollar_format.format(self.total_debt_as_int / self.gdp)
+        debt_gdp_ratio = self.total_debt_as_int / self.gdp
+        return round(debt_gdp_ratio, 2)
+
+    @property
+    def gdp_per_capita(self):
+        gdp_per_capita = self.gdp / self.population
+        return round(gdp_per_capita, 2)
 
     @property
     def population_percentage_of_the_world(self):

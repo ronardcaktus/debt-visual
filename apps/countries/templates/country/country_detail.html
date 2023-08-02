@@ -8,7 +8,7 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            <h1 class="display-3">All content will go here</h1>
+            <h1 class="display-3 text-center ">Country Detail</h1>
             <div class="row">
                 <div class="col-3">
                     {% for country in countries %}
@@ -33,10 +33,12 @@
                             </p>
                             <p><strong>Region:</strong> {{ country.region_formatted }}</p>
                             <p><strong>Continent:</strong> {{ country.continent_formatted }}</p>
+                            <p><strong>Population % of the World:</strong>
+                                {{ country.population_percentage_of_the_world }}</p>
                         </div>
                     </div>
 
-                    <!-- GDP Chart -->
+                    <!-- Region GDP Chart -->
                     <canvas id="gdpChart" width="300" height="300"></canvas>
                     <script>
                         const ctx = document.getElementById('gdpChart').getContext('2d');
@@ -63,14 +65,59 @@
                     <p class="lead text-center fs-6"> {{ country.name }}'s GDP %
                         of {{ country.region_formatted}}n region.</p>
 
-                    {% endfor %}
                 </div>
                 <div class="col-9">
-                    <h4>Economics indicator chart will go here</h4>
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Economic Indicators per Citizen (US Dollar)</h5>
+                            </div>
+                            <div class="card-body pb-1">
+                                <!-- Economic indicators Chart -->
+                                <canvas id="econIndicatorsChart" width="600" height="300"></canvas>
+                                <script>
+                                    const ctx2 = document.getElementById('econIndicatorsChart').getContext('2d');
+                                    const data = {
+                                        labels: ["Internal Debt PP", "External Debt PP", "Total Debt PP", "GDP per Capita"],
+                                        datasets: [{
+                                            label: '{{ country.name }}',
+                                            data: ["{{ country.internal_debt_per_citizen}}", "{{ country.external_debt_per_citizen }}", "{{ country.total_debt_per_citizen }}", "{{ country.gdp_per_capita }}"],
+                                            borderRadius: 10,
+                                            backgroundColor: [
+                                                'rgba(255, 99, 132, 0.4)',
+                                                'rgba(255, 159, 64, 0.4)',
+                                                'rgba(54, 162, 235, 0.4)',
+                                                'rgba(75, 192, 192, 0.4)',
+                                            ],
+                                            hoverBackgroundColor: [
+                                                'rgba(255, 99, 132, 0.7)',
+                                                'rgba(255, 159, 64, 0.7)',
+                                                'rgba(54, 162, 235, 0.7)',
+                                                'rgba(75, 192, 192, 0.7)',
+                                            ],
+                                            borderColor: [
+                                                'rgb(255, 99, 132)',
+                                                'rgb(255, 159, 64)',
+                                                'rgb(54, 162, 235)',
+                                                'rgb(75, 192, 192)',
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    };
+
+                                    const econIndicatorsChart = new Chart(ctx2, {
+                                        type: 'bar', // Specify the chart type (bar chart in this case)
+                                        data: data // Use the 'data' object defined earlier
+                                    });
+                                </script>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
 </main>
 
 {% endblock content %}

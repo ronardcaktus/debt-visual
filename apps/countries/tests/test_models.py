@@ -27,24 +27,24 @@ class TestCountryProperties:
         )
 
     def test_internal_debt_per_citizen(self):
-        internal_debt = self.internal_debt / self.population
-        assert self.cf.internal_debt_per_citizen == dollar_format.format(internal_debt)
+        internal_debt = round(self.internal_debt / self.population, 2)
+        assert self.cf.internal_debt_per_citizen == internal_debt
 
     def test_external_debt_per_citizen(self):
-        ext_debt_per_citizen = self.external_debt / self.population
-        assert self.cf.external_debt_per_citizen == dollar_format.format(
-            ext_debt_per_citizen
-        )
+        ext_debt_per_citizen = round(self.external_debt / self.population, 2)
+        assert self.cf.external_debt_per_citizen == ext_debt_per_citizen
 
     def test_total_debt_per_citizen(self):
-        total_debt_per_citizen = self.total_debt_as_int / self.population
-        assert self.cf.total_debt_per_citizen == dollar_format.format(
-            total_debt_per_citizen
-        )
+        total_debt_per_citizen = round(self.total_debt_as_int / self.population, 2)
+        assert self.cf.total_debt_per_citizen == round(total_debt_per_citizen, 2)
 
     def test_debt_to_gpd_ratio(self):
-        debt_to_gpd_ratio = self.total_debt_as_int / self.gdp
-        assert self.cf.debt_to_gpd_ratio == dollar_format.format(debt_to_gpd_ratio)
+        debt_to_gpd_ratio = round((self.total_debt_as_int / self.gdp), 2)
+        assert self.cf.debt_to_gpd_ratio == debt_to_gpd_ratio
+
+    def test_gdp_per_capita(self):
+        gdp_per_capita = round(self.gdp / self.population, 2)
+        assert self.cf.gdp_per_capita == gdp_per_capita
 
     def test_population_percentage_of_the_world(self):
         country_vs_world_population = round(self.population / world_population, 4) * 100
@@ -125,23 +125,21 @@ class CountryModelTests(TestCase):
     "input_str, expected_output",
     [
         ("1000000", "1.0 million"),
-        ("9999999", "10.0 million"),
+        ("9999999", "9.9 million"),
         ("10000000", "10.0 million"),
-        ("99999999", "100.0 million"),
+        ("99999999", "99.9 million"),
         ("100000000", "100.0 million"),
-        # Edgecase - 999 million, 999 thousand, and 999
-        # shows as 1,000.0 million because they aren't one
-        # billion.
-        ("999999999", "1,000.0 million"),
+        ("999999999", "999.9 million"),
         ("1000000000", "1.0 billion"),
-        ("9999999999", "10.0 billion"),
+        ("9999999999", "9.9 billion"),
         ("10000000000", "10.0 billion"),
-        ("99999999999", "100.0 billion"),
+        ("99999999999", "99.9 billion"),
         ("100000000000", "100.0 billion"),
         ("1234567890", "1.2 billion"),
-        ("123456", "123.5 thousand"),
+        ("123456", "123.4 thousand"),
         ("1234567", "1.2 million"),
         ("1000000000000", "1.0 trillion"),
+        ("1999999999999", "1.9 trillion"),
     ],
 )
 def test_formatted_population(input_str, expected_output):
