@@ -33,6 +33,8 @@
                             </p>
                             <p><strong>Region:</strong> {{ country.region_formatted }}</p>
                             <p><strong>Continent:</strong> {{ country.continent_formatted }}</p>
+                            <p><strong>Population % of the World:</strong>
+                                {{ country.population_percentage_of_the_world }}</p>
                         </div>
                     </div>
 
@@ -68,7 +70,7 @@
                     <div class="container">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Economic Indicators</h5>
+                                <h5>Economic Indicators per Citizen (US Dollar)</h5>
                             </div>
                             <div class="card-body pb-1">
                                 <!-- Economic indicators Chart -->
@@ -76,27 +78,21 @@
                                 <script>
                                     const ctx2 = document.getElementById('econIndicatorsChart').getContext('2d');
                                     const data = {
-                                        labels: ["{{ country.internal_debt_per_citizen}}", "{{ country.external_debt_per_citizen }}", "{{ country.total_debt_per_citizen }}", "{{ country.debt_to_gpd_ratio }}"],
+                                        labels: ["Internal Debt PP", "External Debt PP", "Total Debt PP", "GDP per Capita"],
                                         datasets: [{
                                             label: '{{ country.name }}',
-                                            data: ["{{ country.internal_debt_per_citizen}}", "{{ country.external_debt_per_citizen }}", "{{ country.total_debt_per_citizen }}", "{{ country.debt_to_gpd_ratio }}"],
+                                            data: ["{{ country.internal_debt_per_citizen}}", "{{ country.external_debt_per_citizen }}", "{{ country.total_debt_per_citizen }}", "{{ country.gdp_per_capita }}"],
                                             backgroundColor: [
                                                 'rgba(255, 99, 132, 0.4)',
                                                 'rgba(255, 159, 64, 0.4)',
-                                                'rgba(255, 205, 86, 0.4)',
-                                                'rgba(75, 192, 192, 0.4)',
                                                 'rgba(54, 162, 235, 0.4)',
-                                                'rgba(153, 102, 255, 0.4)',
-                                                'rgba(201, 203, 207, 0.4)'
+                                                'rgba(75, 192, 192, 0.4)',
                                             ],
                                             borderColor: [
                                                 'rgb(255, 99, 132)',
                                                 'rgb(255, 159, 64)',
-                                                'rgb(255, 205, 86)',
-                                                'rgb(75, 192, 192)',
                                                 'rgb(54, 162, 235)',
-                                                'rgb(153, 102, 255)',
-                                                'rgb(201, 203, 207)'
+                                                'rgb(75, 192, 192)',
                                             ],
                                             borderWidth: 1
                                         }]
