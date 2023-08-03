@@ -129,7 +129,7 @@ class Country(models.Model):
             if total_region_gdp
             else 0
         )
-        return f"{numerize.numerize(float(remaining_gdp_percentage), 4)}"
+        return f"{remaining_gdp_percentage}"
 
     @property
     def country_gdp_pc(self):
@@ -141,7 +141,7 @@ class Country(models.Model):
             else 0
         )
 
-        return f"{numerize.numerize(float(country_gdp_region_percentage), 4)}"
+        return f"{country_gdp_region_percentage}"
 
     @property
     def continent_formatted(self):

@@ -83,7 +83,7 @@ class CountryModelTests(TestCase):
         expected_percentage = (
             (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
         )
-        assert Decimal(country.gdp_as_percentage_of_region) == Decimal(
+        assert Decimal(country.country_gdp_pc) == Decimal(
             limit_2_decimals.format(expected_percentage)
         )
 
@@ -104,7 +104,7 @@ class CountryModelTests(TestCase):
         expected_percentage = (
             (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
         )
-        assert Decimal(country.gdp_as_percentage_of_region) == Decimal(
+        assert Decimal(country.country_gdp_pc) == Decimal(
             limit_2_decimals.format(expected_percentage)
         )
 
@@ -115,9 +115,7 @@ class CountryModelTests(TestCase):
         expected_percentage = (
             (country.gdp / total_region_gdp) * 100 if total_region_gdp != 0 else 0
         )
-        assert (
-            int(country.gdp_as_percentage_of_region) == 0 and expected_percentage == 0
-        )
+        assert int(country.country_gdp_pc) == 0 and expected_percentage == 0
 
 
 # Tests formatted_population property in Country model
