@@ -118,13 +118,21 @@ class Country(models.Model):
         return (self.gdp / utils.global_gdp) * 100
 
     @property
-    def total_region_gdp(self):
+    def total_region_gdp_pc_excluding_self(self):
         countries_in_region = Country.objects.filter(region=self.region)
         total_region_gdp = sum(country.gdp for country in countries_in_region)
-        return f"{numerize.numerize(float(total_region_gdp))}"
+
+        remaining_gdp_percentage = (
+            utils.limit_2_decimals.format(
+                ((total_region_gdp - self.gdp) / total_region_gdp) * 100
+            )
+            if total_region_gdp
+            else 0
+        )
+        return f"{numerize.numerize(float(remaining_gdp_percentage), 4)}"
 
     @property
-    def gdp_as_percentage_of_region(self):
+    def country_gdp_pc(self):
         countries_in_region = Country.objects.filter(region=self.region)
         total_region_gdp = sum(country.gdp for country in countries_in_region)
         country_gdp_region_percentage = (
