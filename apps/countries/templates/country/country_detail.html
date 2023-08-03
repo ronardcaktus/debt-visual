@@ -51,7 +51,7 @@
                                 ],
                                 datasets: [{
                                     label: 'GDP chart',
-                                    data: ["{{ country.total_region_gdp }}", "{{ country.gdp_as_percentage_of_region }}"],
+                                    data: ["{{ country.total_region_gdp_pc_excluding_self }}", "{{ country.country_gdp_pc }}"],
                                     backgroundColor: [
                                         'rgba(90, 138, 211, 0.7)',
                                         'rgba(220, 235, 2, 0.7)'
@@ -69,18 +69,15 @@
                 <div class="col-9">
                     <div class="container">
                         <div class="card">
-                            <div class="card-header">
-                                <h5>Economic Indicators per Citizen (US Dollar)</h5>
-                            </div>
                             <div class="card-body pb-1">
                                 <!-- Economic indicators Chart -->
-                                <canvas id="econIndicatorsChart" width="600" height="300"></canvas>
+                                <canvas id="econIndicatorsChart" width="500" height="270"></canvas>
                                 <script>
                                     const ctx2 = document.getElementById('econIndicatorsChart').getContext('2d');
                                     const data = {
                                         labels: ["Internal Debt PP", "External Debt PP", "Total Debt PP", "GDP per Capita"],
                                         datasets: [{
-                                            label: '{{ country.name }}',
+                                            label: 'Economic Indicators per Citizen (US Dollar)',
                                             data: ["{{ country.internal_debt_per_citizen}}", "{{ country.external_debt_per_citizen }}", "{{ country.total_debt_per_citizen }}", "{{ country.gdp_per_capita }}"],
                                             borderRadius: 10,
                                             backgroundColor: [
