@@ -1,10 +1,18 @@
+from django.db.models import Q
 from django.shortcuts import render
 
 from apps.countries.models import Country
 
 
+def index(request):
+    return render(request, "country/index.html")
+
+
 def country_detail(request):
-    countries = Country.objects.filter(id="1")
+    query = request.GET.get("q")
+    if not query:
+        countries = ""
+    countries = Country.objects.filter(Q(name__icontains=query))
     context = {
         "countries": countries,
     }

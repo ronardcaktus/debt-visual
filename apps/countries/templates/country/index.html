@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+<form action="{% url 'country_details' %}" method="get">
+    <input name="q" type="text" placeholder="Search...">
+</form>
+
+<div class="welcome-msg-body">
+    <div class="welcome-msg-message" id="message">
+        Type a country name & search...
+    </div>
+</div>
+
+
+
+<script>
+    function showMessage(element, text) {
+        const words = text.split(' ');
+        let i = 0;
+
+        function displayWord() {
+            if (i < words.length) {
+                element.innerHTML += ' ' + words[i];
+                i++;
+                setTimeout(displayWord, 300);
+            } else {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        }
+
+        displayWord();
+    }
+
+    const messageElement = document.getElementById('message');
+    showMessage(messageElement, '');
+</script>
+
+{% endblock content %}
