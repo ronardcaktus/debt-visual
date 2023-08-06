@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Not found {% endblock title %}
+
+{% block content %}
+<!-- Add style to this page -->
+{% if query %}
+<h2>Oops, we could not find '{{ query }}'. Maybe we need a new compass? Or maybe you should
+    start a new country and name it {{ query }}?</h2>
+{% endif%}
+
+{% endblock content %}

@@ -9,4 +9,3 @@ apps/__pycache__
 apps/countries/__pycache__
 debt_visual/__pycache__
 .coverage
-apps/countries/templates/country/welcome.html
