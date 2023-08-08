@@ -41,3 +41,37 @@
 }
 
 /* End welcome page styles */
+
+/* Country not found page styles */
+.not-found-body {
+    background-image: url("/static/imgs/compass-not-found.jpg");
+    background-size: cover;
+    /* Centers the image */
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    /* Adjust the height as needed */
+    height: 100vh;
+    display: flex;
+}
+
+.not-found-uh-oh {
+    color: white;
+    padding-top: 12rem;
+    margin-bottom: 1rem;
+}
+
+.not-found-text {
+    color: white;
+}
+
+.not-found-404 {
+    color: white;
+    padding-top: 6rem;
+}
+
+.not-found-btn {
+    margin-top: 4rem;
+}
+
+/* Country not found page ends */
