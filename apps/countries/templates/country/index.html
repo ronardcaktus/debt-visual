@@ -6,6 +6,7 @@
 <div class="container min-vh-300 py-4">
     <div class="col-md-9 mx-auto" id="form-vertical-position">
         <form action="{% url 'country_details' %}" method="get">
+            {% csrf_token %}
             <div class="input-group">
                 <input class="form-control border-end-0 border rounded-pill form-control-lg" name="q" type="text"
                     placeholder="Search...">
