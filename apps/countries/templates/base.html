@@ -10,10 +10,12 @@
     <meta name="author" content="Ronard Luna (ronarddevelops@gmail.com)" />
     <title>{% block title %}{% endblock title %}</title>
     <link rel="icon" href="/static/imgs/logo-chart.png">
-    {# Load Django Bootstrap5 CSS and JavaScript #}
+    <!-- Load Django Bootstrap5 CSS and JavaScript -->
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <!-- HTMX -->
+    <script src="{% static '/js/htmx.min.js' %}" defer></script>
     <!-- Fontawesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -26,7 +28,7 @@
 
 </head>
 
-<body>
+<body hx-boost="true">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light d-lg-block">
         <div class="container-fluid">
@@ -80,7 +82,7 @@
             </div>
         </div>
     </nav>
-    <!-- Navbar -->
+    <!-- Navbar end -->
     {% block content %}
     {% endblock content %}
     <script src="{% static 'js/script.js' %}"></script>
