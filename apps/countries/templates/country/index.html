@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="container min-vh-300 py-4">
+<!-- <div class="container min-vh-300 py-4">
     <div class="col-md-9 mx-auto" id="form-vertical-position">
         <form action="{% url 'country_details' %}" method="get">
             <div class="input-group">
@@ -18,11 +18,24 @@
                 </span>
         </form>
     </div>
+</div> -->
+<div class="container min-vh-300 py-4">
+    <div class="col-md-9 mx-auto" id="form-vertical-position">
+        <div class="dropdown">
+            <input type="text" class="form-control dropdown-toggle border-end-0 border rounded-pill form-control-lg"
+                id="dropdownInput" data-bs-toggle="dropdown" aria-expanded="false" placeholder="Begin typing" name="q">
+            <ul class="dropdown-menu" aria-labelledby="dropdownInput">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 
 <div class="welcome-msg-body">
-    <div class="welcome-msg-message" id="message">
+    <div class="welcome-msg-message display-1" id="message">
         Type a country name & search...
     </div>
 </div>
@@ -31,6 +44,7 @@
 
 
 <script>
+    // Annimates welcome message
     function showMessage(element, text) {
         const words = text.split(' ');
         let i = 0;
