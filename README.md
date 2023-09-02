@@ -55,7 +55,7 @@ Note: For simplicity, the project is currently running SQLite3
 **7. Run the server**
 
 ```linux
-    $ python manage.py migrate
+    $ python manage.py runserver
 ```
 
 **8. Run tests**
