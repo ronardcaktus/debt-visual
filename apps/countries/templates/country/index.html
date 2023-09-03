@@ -25,7 +25,7 @@
 
     <div class="welcome-msg-body">
         <div class="welcome-msg-message display-1" id="message">
-            Type a country name & search...
+            Type a country's name to search...
         </div>
     </div>
 
@@ -46,6 +46,12 @@
                 } else {
                     element.style.opacity = '1';
                     element.style.transform = 'translateY(0)';
+
+                    // Hide the message after 5 seconds
+                    setTimeout(() => {
+                        element.style.opacity = '0';
+                        element.style.transform = 'translateY(100%)';
+                    }, 4000);
                 }
             }
 
