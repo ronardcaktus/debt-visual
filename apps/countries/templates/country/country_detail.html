@@ -107,10 +107,34 @@
                                         data: data
                                     });
                                 </script>
-
                             </div>
                         </div>
+                        <!-- Some countries won't have GPD data, this ensures that -->
+                        <!-- the graph only shows if the country has GDP data. -->
+                        {% if country_has_gdp_data %}
+                        <div class="card-body pb-1">
+                            <!-- GDP Trend Chart -->
+                            <canvas id="GDPTrendChart" width="500" height="270"></canvas>
+                            <script>
+                                const ctx3 = document.getElementById('GDPTrendChart').getContext('2d');
+                                const gdp_trend_data = {
+                                    labels: ['January', "February", "March", "April", "June", "July"],
+                                    datasets: [{
+                                        label: 'GDP 2007-2022 in (US Dollars)',
+                                        data: [65, 59, 80, 81, 56, 55, 40],
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.3
+                                    }]
+                                };
+                                const gdp_trend_chart = new Chart(ctx3, {
+                                    type: 'line',
+                                    data: gdp_trend_data
+                                });
+                            </script>
+                        </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>

@@ -6,7 +6,7 @@ from apps import utils
 
 class Country(models.Model):
     name = models.CharField(max_length=200)
-    flag = models.CharField(max_length=20)
+    flag = models.CharField(max_length=20, blank=True, null=True)
     population = models.IntegerField()
     gdp = models.DecimalField(max_digits=100, decimal_places=2)
     internal_debt = models.DecimalField(max_digits=100, decimal_places=2)
@@ -150,3 +150,25 @@ class Country(models.Model):
     @property
     def region_formatted(self):
         return utils.format_country_or_continent(self.region)
+
+
+class GDPTrend(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    gdp1 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp2 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp3 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp4 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp5 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp6 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp7 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp8 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp9 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp10 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp11 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp12 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp13 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp14 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+    gdp15 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.country.name}"

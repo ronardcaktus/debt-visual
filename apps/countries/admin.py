@@ -10,4 +10,9 @@ class CountryAdmin(admin.ModelAdmin):
     ordering = ("-gdp",)
 
 
+class GPDTrendAdmin(admin.ModelAdmin):
+    list_display = ["country", "gdp1", "gdp2", "gdp3", "gdp13", "gdp14", "gdp15"]
+
+
 admin.site.register(models.Country, CountryAdmin)
+admin.site.register(models.GDPTrend, GPDTrendAdmin)
