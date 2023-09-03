@@ -8,51 +8,52 @@
     <div class="col-md-9 mx-auto" id="form-vertical-position">
         <div>
             <div class="input-group">
-                <input class="form-control border-end-0 border rounded-pill form-control-lg" name="q" type="text" placeholder="Search..."
-                    hx-get="{% url 'search_countries' %}" hx-include="[name='q']" hx-trigger="input" hx-target="#country-results" />
+                <input class="form-control border-end-0 border rounded-pill form-control-lg" autocomplete="off" name="q"
+                    type="text" placeholder="Search..." hx-get="{% url 'search_countries' %}" hx-include="[name='q']"
+                    hx-trigger="keyup changed delay:100ms, search" hx-target="#country-results" />
                 <span class=" input-group-append">
                     <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill btn-lg ms-n5"
                         type="submit">
                         <i class="fa-solid fa-earth-americas"></i>
                     </button>
                 </span>
+            </div>
+            <div id="country-results"></div>
         </div>
-        <div id="country-results"></div>
     </div>
-</div>
 
 
-<div class="welcome-msg-body">
-    <div class="welcome-msg-message display-1" id="message">
-        Type a country name & search...
+    <div class="welcome-msg-body">
+        <div class="welcome-msg-message display-1" id="message">
+            Type a country name & search...
+        </div>
     </div>
-</div>
 
 
 
 
-<script>
-    // Annimates welcome message
-    function showMessage(element, text) {
-        const words = text.split(' ');
-        let i = 0;
+    <script>
+        // Annimates welcome message
+        function showMessage(element, text) {
+            const words = text.split(' ');
+            let i = 0;
 
-        function displayWord() {
-            if (i < words.length) {
-                element.innerHTML += ' ' + words[i];
-                i++;
-                setTimeout(displayWord, 300);
-            } else {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
+            function displayWord() {
+                if (i < words.length) {
+                    element.innerHTML += ' ' + words[i];
+                    i++;
+                    setTimeout(displayWord, 300);
+                } else {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
             }
+
+            displayWord();
         }
 
-        displayWord();
-    }
+        const messageElement = document.getElementById('message');
+        showMessage(messageElement, '');
+    </script>
 
-    const messageElement = document.getElementById('message');
-    showMessage(messageElement, '');
-</script>
-
-{% endblock content %}
+    {% endblock content %}

@@ -1,22 +1,22 @@
-<div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Country</th>
-          <th scope="col">GDP in $</th>
-          <th scope="col">Total Debit in $</th>
-        </tr>
-      </thead>
-      <tbody>
-          {% for country in countries %}
-            <tr>
-                <td scope="row">{{ forloop.counter }}</td>
-                <td><a href="{% url 'country_details' country_id=country.id %}">{{ country.name }}</a></td>
-                <td>{{ country.gdp_in_dollars }}</td>
-                <td>{{ country.total_debt_in_dollars  }}</td>
-            </tr>
-          {% endfor %}
-      </tbody>
-    </table>
+<div class="container">
+  <table class="table table-borderless">
+    <tbody>
+      <tr>
+        {% for country in countries %}
+        <td class="text-end"><a class="lead" href="{% url 'country_details' country_id=country.id %}"
+            style="text-decoration: none; color: black;">
+            {{ country.flag }}</a></td>
+        <td><a class="lead" href="{% url 'country_details' country_id=country.id %}"
+            style="text-decoration: none; color: black;">
+            {{ country.name }}</a>
+        </td>
+        <div class="d-flex flex-row-reverse">
+          <td class="text-start"><a class="lead" href="{% url 'country_details' country_id=country.id %}"
+              style="text-decoration: none; color: black;">
+              {{ country.region_formatted }}</a></td>
+        </div>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
