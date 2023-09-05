@@ -7,8 +7,7 @@
 <main role="main">
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <div class="container">
-            <h1 class="display-3 text-center">Country Detail</h1>
+        <div class="container pt-4">
             <div class="row">
                 <div class="col-3">
                     {% for country in countries %}
@@ -69,7 +68,8 @@
                 <div class="col-9">
                     <div class="container">
                         <div class="card">
-                            <div class="card-body pb-1">
+                            <p class="h6 text-center pt-2">Economic Indicators per citizen (US Dollar)</p>
+                            <div class="card-body">
                                 <!-- Economic indicators Chart -->
                                 <canvas id="econIndicatorsChart" width="500" height="270"></canvas>
                                 <script>
@@ -77,7 +77,6 @@
                                     const data = {
                                         labels: ["Internal Debt PP", "External Debt PP", "Total Debt PP", "GDP per Capita"],
                                         datasets: [{
-                                            label: 'Economic Indicators per Citizen (US Dollar)',
                                             data: ["{{ country.internal_debt_per_citizen}}", "{{ country.external_debt_per_citizen }}", "{{ country.total_debt_per_citizen }}", "{{ country.gdp_per_capita }}"],
                                             borderRadius: 10,
                                             backgroundColor: [
@@ -104,32 +103,75 @@
 
                                     const econIndicatorsChart = new Chart(ctx2, {
                                         type: 'bar',
-                                        data: data
+                                        data: data,
+                                        options: {
+                                            plugins: {
+                                                legend: {
+                                                    display: false // Hide the legend
+                                                }
+                                            },
+                                            scales: {
+                                                x: {
+                                                    grid: {
+                                                        color: 'rgba(211,211,211, 0.2)' // Change the x-axis gridlines color
+                                                    }
+                                                },
+                                                y: {
+                                                    grid: {
+                                                        color: 'rgba(211,211,211, 0.2)' // Change the y-axis gridlines color
+                                                    }
+                                                }
+                                            }
+                                        }
                                     });
                                 </script>
                             </div>
                         </div>
                         <!-- Some countries won't have GPD data, this ensures that -->
                         <!-- the graph only shows if the country has GDP data. -->
-                        {% if country_has_gdp_data %}
+                        {% if gdp_data %}
                         <div class="card-body pb-1">
+                            <p class="h6 text-center">GDP 2007-2022 in (US Dollars)</p>
                             <!-- GDP Trend Chart -->
                             <canvas id="GDPTrendChart" width="500" height="270"></canvas>
                             <script>
+                                years_graph_label = [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
+                                gdp_model_data = ["{{ gdp_data.gdp1 }}", "{{ gdp_data.gdp2 }}", "{{ gdp_data.gdp3 }}", "{{ gdp_data.gdp4 }}", "{{ gdp_data.gdp5 }}", "{{ gdp_data.gdp6 }}",
+                                    "{{ gdp_data.gdp7 }}", "{{ gdp_data.gdp8 }}", "{{ gdp_data.gdp9 }}", "{{ gdp_data.gdp10 }}", "{{ gdp_data.gdp11 }}", "{{ gdp_data.gdp12 }}",
+                                    "{{ gdp_data.gdp13 }}", "{{ gdp_data.gdp14 }}", "{{ gdp_data.gdp15 }}"
+                                ]
                                 const ctx3 = document.getElementById('GDPTrendChart').getContext('2d');
                                 const gdp_trend_data = {
-                                    labels: ['January', "February", "March", "April", "June", "July"],
+                                    labels: years_graph_label,
                                     datasets: [{
-                                        label: 'GDP 2007-2022 in (US Dollars)',
-                                        data: [65, 59, 80, 81, 56, 55, 40],
+                                        data: gdp_model_data,
                                         fill: false,
-                                        borderColor: 'rgb(75, 192, 192)',
-                                        tension: 0.3
-                                    }]
+                                        borderColor: '#54B4D3',
+                                        tension: 0.5,
+                                    }],
                                 };
                                 const gdp_trend_chart = new Chart(ctx3, {
                                     type: 'line',
-                                    data: gdp_trend_data
+                                    data: gdp_trend_data,
+                                    options: {
+                                        plugins: {
+                                            legend: {
+                                                display: false // Hide the legend
+                                            }
+                                        },
+                                        scales: {
+                                            x: {
+                                                grid: {
+                                                    display: false, // Hide x-axis gridlines
+                                                }
+                                            },
+                                            y: {
+                                                grid: {
+                                                    color: 'rgba(211,211,211, 0.2)' // Change the y-axis gridlines color
+                                                }
+                                            }
+                                        }
+                                    }
                                 });
                             </script>
                         </div>

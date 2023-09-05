@@ -152,6 +152,9 @@ class Country(models.Model):
         return utils.format_country_or_continent(self.region)
 
 
+# Since SQLite 3 does not support array fields, I had to creare a new model to store
+# the GDPTrend data. If the project ever transitions to PostgreSQL the GDPTrend model
+# could be deleted an an Array field should be used instead.
 class GDPTrend(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     gdp1 = models.DecimalField(max_digits=100, decimal_places=2, blank=True, null=True)

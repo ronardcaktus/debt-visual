@@ -11,14 +11,14 @@ def country_detail(request, country_id):
     countries = Country.objects.filter(id=country_id)
     try:
         selected_country = countries[0]
-        country_has_gdp_data = GDPTrend.objects.get(country=selected_country)
+        gdp_data = GDPTrend.objects.get(country=selected_country)
     except GDPTrend.DoesNotExist:
-        country_has_gdp_data = None
-    if country_has_gdp_data and country_has_gdp_data.gdp1 is not None:
+        gdp_data = None
+    if gdp_data and gdp_data.gdp1 is not None:
         return render(
             request,
             "country/country_detail.html",
-            {"countries": countries, "country_has_gdp_data": country_has_gdp_data},
+            {"countries": countries, "gdp_data": gdp_data},
         )
     return render(request, "country/country_detail.html", {"countries": countries})
 
