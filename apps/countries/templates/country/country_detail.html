@@ -9,7 +9,7 @@
     <div class="jumbotron">
         <div class="container pt-4">
             <div class="row">
-                <div class="col-3">
+                <div class="col-lg-3 col-md-7 col-sm-6">
                     {% for country in countries %}
                     <div class="card">
                         <div class="card-header pb-1">
@@ -36,36 +36,36 @@
                                 {{ country.population_percentage_of_the_world }}</p>
                         </div>
                     </div>
-
-                    <!-- Region GDP Chart -->
-                    <canvas id="gdpChart" width="300" height="300"></canvas>
-                    <script>
-                        const ctx = document.getElementById('gdpChart').getContext('2d');
-                        const gdpChart = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: [
-                                    'Total Region GDP %',
-                                    '{{ country.name }} GPD %',
-                                ],
-                                datasets: [{
-                                    label: 'GDP chart',
-                                    data: ["{{ country.total_region_gdp_pc_excluding_self }}", "{{ country.country_gdp_pc }}"],
-                                    backgroundColor: [
-                                        'rgba(90, 138, 211, 0.7)',
-                                        'rgba(220, 235, 2, 0.7)'
+                    <div class="col-lg-12 d-none d-lg-block">
+                        <!-- Region GDP Chart -->
+                        <canvas id="gdpChart" width="300" height="300"></canvas>
+                        <script>
+                            const ctx = document.getElementById('gdpChart').getContext('2d');
+                            const gdpChart = new Chart(ctx, {
+                                type: 'pie',
+                                data: {
+                                    labels: [
+                                        'Total Region GDP %',
+                                        '{{ country.name }} GPD %',
                                     ],
-                                    hoverOffset: 4
-                                }]
-                            }
-                        });
-                    </script>
+                                    datasets: [{
+                                        label: 'GDP chart',
+                                        data: ["{{ country.total_region_gdp_pc_excluding_self }}", "{{ country.country_gdp_pc }}"],
+                                        backgroundColor: [
+                                            'rgba(90, 138, 211, 0.7)',
+                                            'rgba(233, 116, 81, 0.7)'
+                                        ],
+                                        hoverOffset: 4
+                                    }]
+                                }
+                            });
+                        </script>
 
-                    <p class="lead text-center fs-6 pt-4"> {{ country.name }}'s GDP %
-                        of {{ country.region_formatted}}n region.</p>
-
+                        <p class="lead text-center fs-6 pt-4"> {{ country.name }}'s GDP %
+                            of {{ country.region_formatted}}n region.</p>
+                    </div>
                 </div>
-                <div class="col-9">
+                <div class="col-lg-9 col-md-12 col-sm-12">
                     <div class="container">
                         <div class="card">
                             <p class="h6 text-center pt-2">Economic Indicators per citizen (US Dollar)</p>
@@ -127,8 +127,7 @@
                                 </script>
                             </div>
                         </div>
-                        <!-- Some countries won't have GPD data, this ensures that -->
-                        <!-- the graph only shows if the country has GDP data. -->
+                        <!-- Some countries won't have GPD data, hence the conditional -->
                         {% if gdp_data %}
                         <div class="card-body pb-1">
                             <p class="h6 text-center">GDP 2007-2022 in (US Dollars)</p>
@@ -147,7 +146,7 @@
                                         data: gdp_model_data,
                                         fill: false,
                                         borderColor: '#54B4D3',
-                                        tension: 0.5,
+                                        tension: 0.2,
                                     }],
                                 };
                                 const gdp_trend_chart = new Chart(ctx3, {
