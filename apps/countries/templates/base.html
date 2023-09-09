@@ -9,6 +9,17 @@
     <meta name="description" content="Search and visualize world and countrie's debt." />
     <meta name="author" content="Ronard Luna (ronarddevelops@gmail.com)" />
     <title>{% block title %}{% endblock title %}</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XQ1N33KSH1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-XQ1N33KSH1');
+    </script>
+
     <link rel="icon" href="/static/imgs/logo-chart.png">
     <!-- Load Django Bootstrap5 CSS and JavaScript  -->
     {% load bootstrap5 %}
