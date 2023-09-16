@@ -32,4 +32,7 @@ def search_countries(request):
 
 
 def compare_countries(request):
-    return render(request, "country/countries_comparison.html")
+    country_1 = Country.objects.filter()
+    return render(
+        request, "country/countries_comparison.html", {"countries_1": country_1}
+    )
