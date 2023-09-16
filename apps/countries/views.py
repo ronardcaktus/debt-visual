@@ -29,3 +29,7 @@ def search_countries(request):
     if query:
         countries = Country.objects.filter(name__icontains=query)
     return render(request, "country/list.html", {"countries": countries})
+
+
+def compare_countries(request):
+    return render(request, "country/countries_comparison.html")

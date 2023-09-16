@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %} Compare Countries {% endblock title %}
+
+{% block content %}
+<div class="container py-4 pt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-5">
+            <div class="input-group">
+                <input class="form-control border-end-0 border rounded-pill form-control-lg" autocomplete="off"
+                    name="q1" type="text" placeholder="Search..." hx-get="{% url 'search_countries' %}"
+                    hx-include="[name='q1']" hx-trigger="keyup changed delay:100ms, search"
+                    hx-target="#country-search-1" />
+            </div>
+            <div id="country-search-1"></div>
+        </div>
+        <div class="col-md-2 text-center">
+            <h3 class="lead text-muted">vs.</h3>
+        </div>
+        <div class="col-md-5">
+            <div class="input-group">
+                <input class="form-control border-end-0 border rounded-pill form-control-lg" autocomplete="off"
+                    name="q2" type="text" placeholder="Search..." hx-get="{% url 'search_countries' %}"
+                    hx-include="[name='q2']" hx-trigger="keyup changed delay:100ms, search"
+                    hx-target="#country-search-2" />
+            </div>
+            <div id="country-search-2"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
