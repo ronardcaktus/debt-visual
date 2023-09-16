@@ -9,3 +9,6 @@ apps/__pycache__
 apps/countries/__pycache__
 debt_visual/__pycache__
 .coverage
+
+importer_script.py
+test_countries.csv
