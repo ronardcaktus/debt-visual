@@ -24,11 +24,18 @@ def country_detail(request, country_id):
 
 
 def search_countries(request):
-    query = request.GET.get("q")
     countries = []
+    search_keys = list(request.GET.keys())
+    search_key = search_keys[0] if search_keys else None
+    if search_key == "q":
+        query = request.GET.get("q")
+        if query:
+            countries = Country.objects.filter(name__icontains=query)
+        return render(request, "country/list.html", {"countries": countries})
+    query = request.GET.get("q_comparison")
     if query:
         countries = Country.objects.filter(name__icontains=query)
-    return render(request, "country/list.html", {"countries": countries})
+    return render(request, "country/list_comparison.html", {"countries": countries})
 
 
 def compare_countries(request):
