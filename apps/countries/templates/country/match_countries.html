@@ -8,9 +8,10 @@
     <div class="row justify-content-center align-items-center">
         <div class="col-md-5">
             <div class="input-group">
-                <input class="form-control border-end-0 border rounded-pill form-control-lg" autocomplete="off" name="q"
-                    type="text" placeholder="Search..." hx-get="{% url 'search_countries' %}" hx-include="[name='q']"
-                    hx-trigger="keyup changed delay:200ms, search" hx-target="#country-search-1" />
+                <input class="form-control border-end-0 border rounded-pill form-control-lg" autocomplete="off"
+                    name="q_country_1" type="text" placeholder="Search..." hx-get="{% url 'search_countries' %}"
+                    hx-include="[name='q_country_1']" hx-trigger="keyup changed delay:200ms, search"
+                    hx-target="#country-search-1" />
             </div>
         </div>
         <div class="col-md-2 text-center">
@@ -19,8 +20,8 @@
         <div class="col-md-5">
             <div class="input-group">
                 <input class="form-control border-end-0 border rounded-pill form-control-lg" autocomplete="off"
-                    name="q_comparison" type="text" placeholder="Search..." hx-get="{% url 'search_countries' %}"
-                    hx-include="[name='q_comparison']" hx-trigger="keyup changed delay:200ms, search"
+                    name="q_country_2" type="text" placeholder="Search..." hx-get="{% url 'search_countries' %}"
+                    hx-include="[name='q_country_2']" hx-trigger="keyup changed delay:200ms, search"
                     hx-target="#country-search-2" />
             </div>
         </div>

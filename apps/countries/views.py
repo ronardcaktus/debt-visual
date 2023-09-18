@@ -32,10 +32,26 @@ def search_countries(request):
         if query:
             countries = Country.objects.filter(name__icontains=query)
         return render(request, "country/list.html", {"countries": countries})
-    query = request.GET.get("q_comparison")
-    if query:
-        countries = Country.objects.filter(name__icontains=query)
-    return render(request, "country/list_comparison.html", {"countries": countries})
+    # I resisted creating two templates for each country's autocomplete
+    # results, but I could not get it to work solely by passing a variable.
+    elif search_key == "q_country_1":
+        query = request.GET.get("q_country_1")
+        if query:
+            countries = Country.objects.filter(name__icontains=query)
+        return render(
+            request,
+            "country/list_comparison_country_1.html",
+            {"countries": countries},
+        )
+    else:
+        query = request.GET.get("q_country_2")
+        if query:
+            countries = Country.objects.filter(name__icontains=query)
+        return render(
+            request,
+            "country/list_comparison_country_2.html",
+            {"countries": countries},
+        )
 
 
 def match_countries(request):
