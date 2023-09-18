@@ -6,7 +6,7 @@ urlpatterns = [
     path("", views.index, name="home"),
     path(
         "countries-comparison/",
-        views.compare_countries,
+        views.match_countries,
         name="countries-comparison",
     ),
     path("search/", views.search_countries, name="search_countries"),

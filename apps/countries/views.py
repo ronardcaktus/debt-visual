@@ -38,8 +38,5 @@ def search_countries(request):
     return render(request, "country/list_comparison.html", {"countries": countries})
 
 
-def compare_countries(request):
-    country_1 = Country.objects.filter()
-    return render(
-        request, "country/countries_comparison.html", {"countries_1": country_1}
-    )
+def match_countries(request):
+    return render(request, "country/match_countries.html")
