@@ -32,7 +32,7 @@ def search_countries(request):
         if query:
             countries = Country.objects.filter(name__icontains=query)
         return render(request, "country/list.html", {"countries": countries})
-    # I resisted creating two templates for each country's autocomplete
+    # I resisted creating two templates, one for each country's autocomplete
     # results, but I could not get the alignment to work solely by passing
     # a variable and using a conditional.
     elif search_key == "q_country_1":
