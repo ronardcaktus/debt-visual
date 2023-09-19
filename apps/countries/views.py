@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from apps.countries.models import Country, GDPTrend
 
@@ -33,14 +33,15 @@ def search_countries(request):
             countries = Country.objects.filter(name__icontains=query)
         return render(request, "country/list.html", {"countries": countries})
     # I resisted creating two templates for each country's autocomplete
-    # results, but I could not get it to work solely by passing a variable.
+    # results, but I could not get the alignment to work solely by passing
+    # a variable and using a conditional.
     elif search_key == "q_country_1":
         query = request.GET.get("q_country_1")
         if query:
             countries = Country.objects.filter(name__icontains=query)
         return render(
             request,
-            "country/list_comparison_country_1.html",
+            "country/autocomplete_country_1.html",
             {"countries": countries},
         )
     else:
@@ -49,10 +50,27 @@ def search_countries(request):
             countries = Country.objects.filter(name__icontains=query)
         return render(
             request,
-            "country/list_comparison_country_2.html",
+            "country/autocomplete_country_2.html",
             {"countries": countries},
         )
 
 
 def match_countries(request):
     return render(request, "country/match_countries.html")
+
+
+def comparison_country_1(request, country_id):
+    country = get_object_or_404(Country, id=country_id)
+    request.session["debt_to_gdp_ratio"] = str(country.debt_to_gpd_ratio)
+    return render(request, "country/display_country_1.html", {"country": country})
+
+
+def comparison_country_2(request, country_id):
+    country = get_object_or_404(Country, id=country_id)
+    country_1_debt_to_gdp_ratio = (
+        request.session.get("debt_to_gdp_ratio")
+        if request.session.get("debt_to_gdp_ratio")
+        else None
+    )
+    print(country_1_debt_to_gdp_ratio)  # TODO: Delete me later
+    return render(request, "country/display_country_2.html", {"country": country})
