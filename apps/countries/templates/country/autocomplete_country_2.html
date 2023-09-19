@@ -1,0 +1,16 @@
+<table style="margin-left: 8em" class="table table-borderless">
+    <tbody class="text-start">
+        <tr>
+            {% for country in countries %}
+            <td><a class="lead text-decoration-none" href="{% url 'comparison_country_2' country_id=country.id %}"
+                    style="color: black;">
+                    {{ country.flag }} {{ country.name }}</a>
+            </td>
+            <td><a class="lead text-decoration-none" href="{% url 'comparison_country_2' country_id=country.id %}"
+                    style="color: black;">
+                    {{ country.region_formatted}}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
